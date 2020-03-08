@@ -8,13 +8,16 @@ class ItemsController < ApplicationController
   end
 
   def new
-  @item = Item.new
+    @item = Item.new
   end
 
   def create
     @item = Item.new(item_params)
-    @item.save
-    redirect_to @item
+    if @item.save
+      redirect_to @item
+    else
+      render :new #データを持ったままnewに飛ぶ
+    end
   end
 
   def edit
@@ -33,7 +36,8 @@ class ItemsController < ApplicationController
     redirect_to items_path
   end
 
-  private　#外からは受付ないよ
+  private
+  #外からは受付ないよ
   def item_params
     params.require(:item).permit(:name, :price, :seller, :description, :email, :image_url)
   end
