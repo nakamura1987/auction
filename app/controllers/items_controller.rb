@@ -27,6 +27,12 @@ class ItemsController < ApplicationController
     redirect_to @item
   end
 
+  def destroy
+    @item = Item.find(params[:id])
+    @item.destroy
+    redirect_to items_path
+  end
+
   private　#外からは受付ないよ
   def item_params
     params.require(:item).permit(:name, :price, :seller, :description, :email, :image_url)
