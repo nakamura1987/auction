@@ -14,11 +14,20 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.save
-
     redirect_to @item
   end
 
-  private
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    @item.update(item_params)
+    redirect_to @item
+  end
+
+  private　#外からは受付ないよ
   def item_params
     params.require(:item).permit(:name, :price, :seller, :description, :email, :image_url)
   end
